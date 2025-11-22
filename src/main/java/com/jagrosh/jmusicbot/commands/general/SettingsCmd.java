@@ -29,24 +29,20 @@ import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 
 /**
- *
  * @author John Grosh <john.a.grosh@gmail.com>
  */
-public class SettingsCmd extends Command 
-{
+public class SettingsCmd extends Command {
     private final static String EMOJI = "\uD83C\uDFA7"; // 🎧
-    
-    public SettingsCmd(Bot bot)
-    {
+
+    public SettingsCmd(Bot bot) {
         this.name = "settings";
         this.help = "shows the bots settings";
         this.aliases = bot.getConfig().getAliases(this.name);
         this.guildOnly = true;
     }
-    
+
     @Override
-    protected void execute(CommandEvent event) 
-    {
+    protected void execute(CommandEvent event) {
         Settings s = event.getClient().getSettingsFor(event.getGuild());
         MessageCreateBuilder builder = new MessageCreateBuilder()
                 .addContent(EMOJI + " **")
@@ -62,17 +58,17 @@ public class SettingsCmd extends Command
                         + "\nDJ Role: " + (role == null ? "None" : "**" + role.getName() + "**")
                         + "\nCustom Prefix: " + (s.getPrefix() == null ? "None" : "`" + s.getPrefix() + "`")
                         + "\nRepeat Mode: " + (s.getRepeatMode() == RepeatMode.OFF
-                                                ? s.getRepeatMode().getUserFriendlyName()
-                                                : "**"+s.getRepeatMode().getUserFriendlyName()+"**")
+                        ? s.getRepeatMode().getUserFriendlyName()
+                        : "**" + s.getRepeatMode().getUserFriendlyName() + "**")
                         + "\nQueue Type: " + (s.getQueueType() == QueueType.FAIR
-                                                ? s.getQueueType().getUserFriendlyName()
-                                                : "**"+s.getQueueType().getUserFriendlyName()+"**")
+                        ? s.getQueueType().getUserFriendlyName()
+                        : "**" + s.getQueueType().getUserFriendlyName() + "**")
                         + "\nDefault Playlist: " + (s.getDefaultPlaylist() == null ? "None" : "**" + s.getDefaultPlaylist() + "**")
-                        )
+                )
                 .setFooter(event.getJDA().getGuilds().size() + " servers | "
                         + event.getJDA().getGuilds().stream().filter(g -> g.getSelfMember().getVoiceState().inAudioChannel()).count()
                         + " audio connections", null);
         event.getChannel().sendMessage(builder.setEmbeds(ebuilder.build()).build()).queue();
     }
-    
+
 }

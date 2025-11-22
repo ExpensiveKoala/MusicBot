@@ -20,18 +20,14 @@ import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.audio.AudioHandler;
 import com.jagrosh.jmusicbot.commands.MusicCommand;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 /**
- *
  * @author John Grosh <john.a.grosh@gmail.com>
  */
-public class NowplayingCmd extends MusicCommand 
-{
-    public NowplayingCmd(Bot bot)
-    {
+public class NowplayingCmd extends MusicCommand {
+    public NowplayingCmd(Bot bot) {
         super(bot);
         this.name = "nowplaying";
         this.help = "shows the song that is currently playing";
@@ -40,17 +36,13 @@ public class NowplayingCmd extends MusicCommand
     }
 
     @Override
-    public void doCommand(CommandEvent event) 
-    {
-        AudioHandler handler = (AudioHandler)event.getGuild().getAudioManager().getSendingHandler();
+    public void doCommand(CommandEvent event) {
+        AudioHandler handler = (AudioHandler) event.getGuild().getAudioManager().getSendingHandler();
         MessageEditData m = handler.getNowPlaying(event.getJDA());
-        if(m==null)
-        {
+        if (m == null) {
             event.reply(MessageCreateData.fromEditData(handler.getNoMusicPlaying(event.getJDA())));
             bot.getNowplayingHandler().clearLastNPMessage(event.getGuild());
-        }
-        else
-        {
+        } else {
             event.reply(MessageCreateData.fromEditData(m), msg -> bot.getNowplayingHandler().setLastNPMessage(msg));
         }
     }

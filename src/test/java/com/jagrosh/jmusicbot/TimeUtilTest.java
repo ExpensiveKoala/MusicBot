@@ -24,19 +24,16 @@ import static org.junit.Assert.*;
 /**
  * @author Whew., Inc.
  */
-public class TimeUtilTest
-{
+public class TimeUtilTest {
     @Test
-    public void singleDigit()
-    {
+    public void singleDigit() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("5");
         assertNotNull(seek);
         assertEquals(5000, seek.milliseconds);
     }
 
     @Test
-    public void multipleDigits()
-    {
+    public void multipleDigits() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("99:9:999");
         assertNotNull(seek);
         assertEquals(357939000, seek.milliseconds);
@@ -47,16 +44,14 @@ public class TimeUtilTest
     }
 
     @Test
-    public void decimalDigits()
-    {
+    public void decimalDigits() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("99.5:9.0:999.777");
         assertNotNull(seek);
         assertEquals(359739777, seek.milliseconds);
     }
 
     @Test
-    public void seeking()
-    {
+    public void seeking() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("5");
         assertNotNull(seek);
         assertFalse(seek.relative);
@@ -64,8 +59,7 @@ public class TimeUtilTest
     }
 
     @Test
-    public void relativeSeekingForward()
-    {
+    public void relativeSeekingForward() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("+5");
         assertNotNull(seek);
         assertTrue(seek.relative);
@@ -73,8 +67,7 @@ public class TimeUtilTest
     }
 
     @Test
-    public void relativeSeekingBackward()
-    {
+    public void relativeSeekingBackward() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("-5");
         assertNotNull(seek);
         assertTrue(seek.relative);
@@ -82,15 +75,13 @@ public class TimeUtilTest
     }
 
     @Test
-    public void parseTimeArgumentLength()
-    {
+    public void parseTimeArgumentLength() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("");
         assertNull(seek);
     }
 
     @Test
-    public void timestampTotalUnits()
-    {
+    public void timestampTotalUnits() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("1:1:1:1");
         assertNull(seek);
 
@@ -100,15 +91,13 @@ public class TimeUtilTest
     }
 
     @Test
-    public void relativeSymbol()
-    {
+    public void relativeSymbol() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("+-1:-+1:+-1");
         assertNull(seek);
     }
 
     @Test
-    public void timestampNumberFormat()
-    {
+    public void timestampNumberFormat() {
         TimeUtil.SeekTime seek = TimeUtil.parseTime("1:1:a");
         assertNull(seek);
 
